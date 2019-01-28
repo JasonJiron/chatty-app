@@ -18,11 +18,11 @@ export default class MessageList extends Component {
   }
 }
 
-let Message = ({message}) => {
+let Message = ({message: {username, content}}) => {
   return (
     <div className="message">
-      <span className="message-username">{message.username}</span>
-      <span className="message-content">{message.content}</span>
+      <span className="message-username">{username}</span>
+      <span className="message-content">{content}</span>
     </div>
   )
 }
