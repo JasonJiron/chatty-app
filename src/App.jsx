@@ -8,10 +8,12 @@ class App extends Component {
       {
         username: "Bob",
         content: "Has anyone seen my marbles?",
+        id: "11AB3"
       },
       {
         username: "Anonymous",
-        content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+        content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
+        id: "48GR9"
       }
     ]
   }
@@ -32,15 +34,13 @@ class App extends Component {
 }
 
 
-class Message extends Component {
-  render() {
-    return (
-      <div className="message">
-        <span className="message-username">{this.props.message.username}</span>
-        <span className="message-content">{this.props.message.content}</span>
-      </div>
-    )
-  }
+let Message = ({message}) => {
+  return (
+    <div className="message">
+      <span className="message-username">{message.username}</span>
+      <span className="message-content">{message.content}</span>
+    </div>
+  )
 }
 
 class MessageList extends Component {
@@ -48,8 +48,8 @@ class MessageList extends Component {
   render() {
 
     let MessageDataArr = this.props.messages
-    const userMessages = MessageDataArr.map((messageData, index) => {
-      return <Message message={messageData}/>
+    const userMessages = MessageDataArr.map((messageData) => {
+      return <Message key={messageData.id} message={messageData}/>
     })
 
 
