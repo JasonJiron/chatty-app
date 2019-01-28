@@ -21,26 +21,42 @@ class App extends Component {
       <div>
         <div>
           <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
+            <a href="/" className="navbar-brand">Chatty</a>
           </nav>
         </div>
-        <Message />
-        <ChatBar 
-          currentUser={this.state.currentUser.name}/>
+        <MessageList messages={this.state.messages}/>
+        <ChatBar currentUser={this.state.currentUser.name}/>
       </div>
     );
   }
 }
 
+
 class Message extends Component {
   render() {
     return (
+      <div className="message">
+        <span className="message-username">{this.props.message.username}</span>
+        <span className="message-content">{this.props.message.content}</span>
+      </div>
+    )
+  }
+}
+
+class MessageList extends Component {
+
+  render() {
+
+    let MessageDataArr = this.props.messages
+    const userMessages = MessageDataArr.map((messageData, index) => {
+      return <Message message={messageData}/>
+    })
+
+
+    return (
       <div>
         <main className="messages">
-          <div className="message">
-            <span className="message-username">Anonymous1</span>
-            <span className="message-content">I won't be impressed with technology until I can download food.</span>
-          </div>
+        { userMessages }
         </main>
       </div>
     )
