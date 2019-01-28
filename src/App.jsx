@@ -1,6 +1,21 @@
 import React, {Component} from 'react';
 
 class App extends Component {
+
+  state = {
+    currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+    messages: [
+      {
+        username: "Bob",
+        content: "Has anyone seen my marbles?",
+      },
+      {
+        username: "Anonymous",
+        content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+      }
+    ]
+  }
+
   render() {
     return (
       <div>
@@ -10,7 +25,8 @@ class App extends Component {
           </nav>
         </div>
         <Message />
-        <ChatBar />
+        <ChatBar 
+          currentUser={this.state.currentUser.name}/>
       </div>
     );
   }
@@ -36,7 +52,10 @@ class ChatBar extends Component {
     return (
       <div>
         <footer className="chatbar">
-          <input className="chatbar-username" placeholder="Your Name (Optional)" />
+          <input 
+            className="chatbar-username" 
+            placeholder="Your Name (Optional)" 
+            defaultValue={this.props.currentUser} />
           <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
         </footer>
       </div>
@@ -45,3 +64,4 @@ class ChatBar extends Component {
 }
 
 export default App;
+
