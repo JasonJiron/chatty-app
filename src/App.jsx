@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import ChatBar from './ChatBar.jsx';
+import MessageList from './MessageList.jsx';
 
 class App extends Component {
 
@@ -18,6 +20,19 @@ class App extends Component {
     ]
   }
 
+  componentDidMount() {
+    console.log("componentDidMount <App />");
+    setTimeout(() => {
+      console.log("Simulating incoming message");
+      // Add a new message to the list of messages in the data store
+      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+      const messages = this.state.messages.concat(newMessage)
+      // Update the state of the app component.
+      // Calling setState will trigger a call to render() in App and all child components.
+      this.setState({messages: messages})
+    }, 3000);
+  }
+
   render() {
     return (
       <div>
@@ -27,57 +42,14 @@ class App extends Component {
           </nav>
         </div>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser.name}/>
+        <ChatBar 
+        currentUser={this.state.currentUser.name} />
       </div>
     );
   }
 }
 
 
-let Message = ({message}) => {
-  return (
-    <div className="message">
-      <span className="message-username">{message.username}</span>
-      <span className="message-content">{message.content}</span>
-    </div>
-  )
-}
-
-class MessageList extends Component {
-
-  render() {
-
-    let MessageDataArr = this.props.messages
-    const userMessages = MessageDataArr.map((messageData) => {
-      return <Message key={messageData.id} message={messageData}/>
-    })
-
-
-    return (
-      <div>
-        <main className="messages">
-        { userMessages }
-        </main>
-      </div>
-    )
-  }
-}
-
-class ChatBar extends Component {
-  render() {
-    return (
-      <div>
-        <footer className="chatbar">
-          <input 
-            className="chatbar-username" 
-            placeholder="Your Name (Optional)" 
-            defaultValue={this.props.currentUser} />
-          <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
-        </footer>
-      </div>
-    )
-  }
-}
 
 export default App;
 

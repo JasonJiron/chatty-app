@@ -1,0 +1,28 @@
+import React, {Component} from 'react';
+
+export default class MessageList extends Component {
+
+  render() {
+    let MessageDataArr = this.props.messages
+    const userMessages = MessageDataArr.map((messageData) => {
+      return <Message key={messageData.id} message={messageData}/>
+    })
+
+    return (
+      <div>
+        <main className="messages">
+        { userMessages }
+        </main>
+      </div>
+    )
+  }
+}
+
+let Message = ({message}) => {
+  return (
+    <div className="message">
+      <span className="message-username">{message.username}</span>
+      <span className="message-content">{message.content}</span>
+    </div>
+  )
+}
