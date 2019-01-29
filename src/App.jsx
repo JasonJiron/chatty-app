@@ -5,7 +5,7 @@ import MessageList from './MessageList.jsx';
 class App extends Component {
 
   state = {
-    currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+    currentUser: {}, // optional. if currentUser is not defined, it means the user is Anonymous
     messages: []
   }
 
@@ -32,12 +32,10 @@ class App extends Component {
     }
     this.socket.onmessage = (message) => {
       let parsedMessage = JSON.parse(message.data)
-      console.log('Logged this ', parsedMessage)
       this.setState({
         messages: [...this.state.messages, parsedMessage]
       })
     }
-
   }
 
   addMessage = (newMessage) => {
@@ -47,6 +45,10 @@ class App extends Component {
       content: newMessage
     }
     this.socket.send(JSON.stringify(newMessageObj))
+  }
+
+  updateUser = (newUser) => {
+    console.log('usernName: ', newUser);
   }
 
   render() {
@@ -60,7 +62,8 @@ class App extends Component {
         <MessageList messages={this.state.messages}/>
         <ChatBar 
           currentUser={this.state.currentUser.name}
-          addMessage={this.addMessage} />
+          addMessage={this.addMessage} 
+          updateUser={this.updateUser} />
       </div>
     );
   }
