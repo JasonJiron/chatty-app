@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class ChatBar extends Component {
 
-  handleNewMessageSubmit = (event) => {
+  handleNewMessageOnChange = (event) => {
     let newMessage = event.target.value
     console.log(newMessage);
     
@@ -13,7 +13,7 @@ export default class ChatBar extends Component {
 
   handleKeyPress = (event) => {
     let newMessage = event.target.value
-    if (event.key == 'Enter') {
+    if (event.key == 'Enter' && newMessage.length > 0) {
       event.target.value = '';
       this.props.addMessage(newMessage)
     }
@@ -32,7 +32,7 @@ export default class ChatBar extends Component {
             name="newMessage"
             className="chatbar-message" 
             placeholder="Type a message and hit ENTER"
-            onChange={this.handleNewMessageSubmit}
+            onChange={this.handleNewMessageOnChange}
             onKeyPress={this.handleKeyPress} />
         </footer>
       </div>

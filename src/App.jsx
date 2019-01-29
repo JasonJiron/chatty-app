@@ -35,6 +35,14 @@ class App extends Component {
 
   // function that gets passed to ChatBar that updates App's state
 
+  componentDidMount() {
+    this.socket = new WebSocket('ws://localhost:3001')
+    this.socket.onopen = () => {
+      console.log('Connected to server');
+      this.socket.send('testing');
+    };
+  }
+
   addMessage = (newMessage) => {
     let currentUser = this.state.currentUser.name
     let newMessageObj = {
@@ -44,6 +52,8 @@ class App extends Component {
     this.setState({
       messages: [...this.state.messages, newMessageObj]
     })
+
+    this.socket.send(`user ${newMessageObj.username} said ${newMessageObj.content}`)
   }
 
   render() {
