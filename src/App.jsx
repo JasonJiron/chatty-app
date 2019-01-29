@@ -25,11 +25,19 @@ class App extends Component {
   // function that gets passed to ChatBar that updates App's state
 
   componentDidMount() {
+
     this.socket = new WebSocket('ws://localhost:3001')
     this.socket.onopen = () => {
       console.log('Connected to server');
     }
-    
+    this.socket.onmessage = (message) => {
+      let parsedMessage = JSON.parse(message.data)
+      console.log('Logged this ', parsedMessage)
+      this.setState({
+        messages: [...this.state.messages, parsedMessage]
+      })
+    }
+
   }
 
   addMessage = (newMessage) => {
@@ -38,10 +46,6 @@ class App extends Component {
       username: currentUser, 
       content: newMessage
     }
-    this.setState({
-      messages: [...this.state.messages, newMessageObj]
-    })
-
     this.socket.send(JSON.stringify(newMessageObj))
   }
 
@@ -55,14 +59,12 @@ class App extends Component {
         </div>
         <MessageList messages={this.state.messages}/>
         <ChatBar 
-        currentUser={this.state.currentUser.name}
-        addMessage={this.addMessage} />
+          currentUser={this.state.currentUser.name}
+          addMessage={this.addMessage} />
       </div>
     );
   }
 }
-
-
 
 export default App;
 

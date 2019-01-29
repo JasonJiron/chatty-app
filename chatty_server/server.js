@@ -25,21 +25,23 @@ const wss = new WebSocket.Server({ server });
 wss.broadcast = function broadcast(message) {
   wss.clients.forEach(function each(client) {
     if (client.readyState) {
-      client.send('message');
+      client.send(message);
     }
   });
 };
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
   ws.on('message', function incoming(message) {
     let parsedMessage = JSON.parse(message)
     parsedMessage.id = uuidv1()
     console.log(parsedMessage);
 
+
   wss.clients.forEach(function each(client) {
-    if (client !== ws && client.readyState === WebSocket.OPEN) {
-      client.send(message);
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(parsedMessage));
     }
   });
 });
