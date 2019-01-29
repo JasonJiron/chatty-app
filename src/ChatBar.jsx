@@ -34,7 +34,9 @@ export default class ChatBar extends Component {
           <input 
             className="chatbar-username" 
             placeholder="Your Name (Optional)" 
-            onKeyPress={this.handleUserKeyPress} />
+            defaultValue={this.props.currentUser}
+            onKeyPress={this.handleUserKeyPress}
+            onBlur={this.handleUserBlur} />
 
           <input 
             type="texts"

@@ -5,7 +5,7 @@ import MessageList from './MessageList.jsx';
 class App extends Component {
 
   state = {
-    currentUser: {}, // optional. if currentUser is not defined, it means the user is Anonymous
+    currentUser: { name: "Bob" }, // optional. if currentUser is not defined, it means the user is Anonymous
     messages: []
   }
 
@@ -25,7 +25,7 @@ class App extends Component {
   // function that gets passed to ChatBar that updates App's state
 
   componentDidMount() {
-
+    
     this.socket = new WebSocket('ws://localhost:3001')
     this.socket.onopen = () => {
       console.log('Connected to server');
@@ -48,9 +48,11 @@ class App extends Component {
   }
 
   updateUser = (newUser) => {
-    console.log('usernName: ', newUser);
+    console.log('userName: ', newUser);
     this.setState({
-      currentUser: newUser
+      currentUser: { 
+        name: newUser 
+      }
     })
   }
 
