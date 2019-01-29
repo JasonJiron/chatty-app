@@ -11,7 +11,7 @@ export default class ChatBar extends Component {
     })
   }
 
-  handleKeyPress = (event) => {
+  handleMessageKeyPress = (event) => {
     let newMessage = event.target.value
     if (event.key == 'Enter' && newMessage.length > 0) {
       event.target.value = '';
@@ -19,9 +19,9 @@ export default class ChatBar extends Component {
     }
   }
 
-  handleUserKeyPress = (event) => {
+  handleNameKeyDown = (event) => {
     let newUser = event.target.value
-    if (event.key == 'Enter' && newUser.length > 0) {
+    if (newUser.length > 0) {
       this.props.updateUser(newUser)
     }
   }
@@ -35,8 +35,7 @@ export default class ChatBar extends Component {
             className="chatbar-username" 
             placeholder="Your Name (Optional)" 
             defaultValue={this.props.currentUser}
-            onKeyPress={this.handleUserKeyPress}
-            onBlur={this.handleUserBlur} />
+            onKeyDown={this.handleNameKeyDown} />
 
           <input 
             type="texts"
@@ -44,7 +43,7 @@ export default class ChatBar extends Component {
             className="chatbar-message" 
             placeholder="Type a message and hit ENTER"
             onChange={this.handleNewMessageOnChange}
-            onKeyPress={this.handleKeyPress} />
+            onKeyPress={this.handleMessageKeyPress} />
 
         </footer>
       </div>
