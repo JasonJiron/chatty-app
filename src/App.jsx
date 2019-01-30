@@ -28,7 +28,7 @@ class App extends Component {
     let currentUser = this.state.currentUser.name
     let newMessageObj = {
       username: currentUser, 
-      type: "postNotification",
+      type: "postMessage",
       content: newMessage
     }
     this.socket.send(JSON.stringify(newMessageObj))

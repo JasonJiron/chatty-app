@@ -31,6 +31,7 @@ wss.on('connection', (ws) => {
 
     if (parsedMessage.type === "postMessage") {
       parsedMessage.type = "incomingMessage"
+      
     } else if (parsedMessage.type === "postNotification") {
      parsedMessage.type = "incomingNotification"
     }
