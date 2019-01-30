@@ -19,6 +19,13 @@ export default class MessageList extends Component {
 }
 
 let Message = ({message: {username, content}}) => {
+
+  // if the content is a incoming notification 
+  
+  
+  
+  // if the content is a post notification
+
   return (
     <div className="message">
       <span className="message-username">{username}</span>

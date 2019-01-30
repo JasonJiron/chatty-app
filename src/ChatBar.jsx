@@ -21,7 +21,7 @@ export default class ChatBar extends Component {
 
   handleNameKeyDown = (event) => {
     let newUser = event.target.value
-    if (newUser.length > 0) {
+    if (event.key == 'Enter' && newUser.length > 0) {
       this.props.updateUser(newUser)
     }
   }
