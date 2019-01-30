@@ -1,5 +1,5 @@
 body {
-  background: white;
+  background: #534951;
   color: black;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -50,6 +50,7 @@ body {
   overflow: hidden;
   margin: 5px;
   padding: 0 10px;
+  color: #5ec0c5;
 }
 
 .message-content {
@@ -78,6 +79,18 @@ body {
   float: left;
   font-weight: 700;
   font-size: 28px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+.navbar-count {
+  color: inherit;
+  display: block;
+  float: right;
+  font-weight: 600;
+  font-size: 16px;
   height: 60px;
   line-height: 60px;
   padding: 0 10px;

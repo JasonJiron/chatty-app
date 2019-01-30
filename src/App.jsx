@@ -6,21 +6,28 @@ class App extends Component {
 
   state = {
     currentUser: { name: "Bob" }, // optional. if currentUser is not defined, it means the user is Anonymous
-    messages: []
+    messages: [],
+    clientCount: 0
   }
 
   componentDidMount() {
 
     this.socket = new WebSocket('ws://localhost:3001')
-
     this.socket.onopen = () => {
       console.log('Connected to server');
     }
+
     this.socket.onmessage = (message) => {
       let parsedMessage = JSON.parse(message.data)
-      this.setState({
-        messages: [...this.state.messages, parsedMessage]
-      })
+      if (parsedMessage.type === 'clientCount') {
+        this.setState({
+          count: parsedMessage.payload.count 
+        })
+      } else {
+        this.setState({
+          messages: [...this.state.messages, parsedMessage]
+        })
+      }
     }
   }
 
@@ -55,6 +62,7 @@ class App extends Component {
         <div>
           <nav className="navbar">
             <a href="/" className="navbar-brand">Chatty</a>
+            <span className="navbar-count">{this.state.count} user online</span>
           </nav>
         </div>
         <MessageList messages={this.state.messages}/>

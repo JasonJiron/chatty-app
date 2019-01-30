@@ -24,26 +24,51 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
-  ws.on('message', function incoming(message) {
+  ws.on('message', function (message) {
     let parsedMessage = JSON.parse(message)
     parsedMessage.id = uuidv1()
     console.log(parsedMessage);
 
     if (parsedMessage.type === "postMessage") {
       parsedMessage.type = "incomingMessage"
-      
     } else if (parsedMessage.type === "postNotification") {
-     parsedMessage.type = "incomingNotification"
+      parsedMessage.type = "incomingNotification"
     }
     
-    wss.clients.forEach(function each(client) {
+
+    wss.clients.forEach(function (client) {
+ 
+
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(parsedMessage));
       }
     });
   });
 
+  wss.clients.forEach(function (client) {
+    let clientCount = {
+      type: 'clientCount',
+      payload: {
+        count: wss.clients.size
+      }
+    }
+
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(clientCount));
+    }
+  });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+    wss.clients.forEach(function (client) {
+      let clientCount = {
+        type: 'clientCount',
+        payload: {
+          count: wss.clients.size
+        }
+      }
+      client.send(JSON.stringify(clientCount));
+      console.log('Client disconnected');
+    });
+  });
 });
