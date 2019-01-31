@@ -4,8 +4,6 @@ export default class ChatBar extends Component {
 
   handleNewMessageOnChange = (event) => {
     let newMessage = event.target.value
-    console.log(newMessage);
-    
     this.setState({
       content: newMessage
     })
@@ -30,13 +28,11 @@ export default class ChatBar extends Component {
     return (
       <div>
         <footer className="chatbar">
-
           <input 
             className="chatbar-username" 
             placeholder="Your Name (Optional)" 
             defaultValue={this.props.currentUser}
             onKeyDown={this.handleNameKeyDown} />
-
           <input 
             type="texts"
             name="newMessage"
@@ -44,7 +40,6 @@ export default class ChatBar extends Component {
             placeholder="Type a message and hit ENTER"
             onChange={this.handleNewMessageOnChange}
             onKeyPress={this.handleMessageKeyPress} />
-
         </footer>
       </div>
     )
