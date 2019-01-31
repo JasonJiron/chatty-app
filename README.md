@@ -30,8 +30,8 @@ open http://localhost:3000
 - Bob is the default user. If one would like to update their screen name, they can type out a new name on the bottom left, then hitting enter.
 - The chatroom will be notified of the change.
 
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
+![Landing Page](https://github.com/JasonJiron/chatty-app/blob/master/docs/Chatty-1.png)
+![Example](https://github.com/JasonJiron/chatty-app/blob/master/docs/Chatty-2.png)
 
 
 
